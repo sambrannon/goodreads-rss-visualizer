@@ -1,3 +1,5 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/191a0179-deb2-4451-84ca-75e5a56671b9/deploy-status)](https://app.netlify.com/sites/goodreas-rss-visualizer/deploys)
+
 # Goodreads RSS Stack Visualizer
 
 This is a small app that pulls RSS feed data from a Goodreads account, and renders things in a fun book-stack visualized way.

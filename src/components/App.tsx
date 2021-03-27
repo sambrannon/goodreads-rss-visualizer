@@ -39,11 +39,15 @@ function App() {
   });
 
   const fetchData = async () => {
+    const fetchURL =  `${CORS_PROXY}/${goodreadsUserFeedURL(query)}`;
+
     if (!query) return;
 
     setStatus('fetching');
 
-    parser.parseURL(CORS_PROXY + `/${goodreadsUserFeedURL(query)}`, function(err, feed) {
+    console.log(`Fetching from ${fetchURL}`);
+
+    parser.parseURL(fetchURL, function(err, feed) {
       if (err) {
         setStatus('error');
         throw err;
