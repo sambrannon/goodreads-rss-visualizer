@@ -3,6 +3,7 @@ import RSSParser from 'rss-parser';
 import Head from './Head';
 import { feedData } from '../types';
 import UserBar from './UserBar';
+import Book from './Book';
 
 const CORS_PROXY = window.location.hostname === "localhost"
   ? "https://cors-anywhere.herokuapp.com"
@@ -92,36 +93,21 @@ function App() {
       <Head rawFeedTitle={data?.title} />
       <div className="app">
         <div className="app__books">
-          {data?.items?.map(item => (
-            <div key={item.guid}>
-              {item.title}
-              {item.book?.num_pages}
-            </div>
+          {data?.items?.map(book => (
+            <Book
+              key={book.guid}
+              book={book}
+            />
           ))}
         </div>
         <div className="app__user-bar">
-          <header className="app-header">
-            <h1>
-              Status: {status}
-            </h1>
-            <form onSubmit={onFormSubmission}>
-              <label htmlFor="goodreads-id">
-                Goodreads User ID:
-              </label>
-              <input
-                id="goodreads-id"
-                type="text"
-                value={userIDQuery}
-                required
-                onChange={(
-                    ev: React.ChangeEvent<HTMLInputElement>,
-                ): void => setUserIDQuery(ev.target.value)}
-              />
-              <button type="submit">Go</button>
-            </form>
-          </header>
-
-          <UserBar data={data} />
+          <UserBar
+            data={data}
+            status={status}
+            userIDQuery={userIDQuery}
+            onUserSearch={onFormSubmission}
+            onUserValueChange={(ev: React.ChangeEvent<HTMLInputElement>): void => setUserIDQuery(ev.target.value)}
+          />
         </div>
       </div>
     </>
