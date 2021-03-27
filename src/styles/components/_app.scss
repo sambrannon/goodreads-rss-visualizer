@@ -1,0 +1,14 @@
+.app {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.app__books {
+  flex: 1;
+}
+
+.app__user-bar {
+  flex: 0 0 auto;
+}

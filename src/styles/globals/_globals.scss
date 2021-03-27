@@ -1,0 +1,22 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--background-color);
+}
+
+html {
+  font-size: 62.5%;
+  // height: 100vh;
+}
+
+body {
+  font-size: 1.8rem;
+  font-family: var(--font-family-main);
+  color: var(--primary-text-color);
+  // height: 100vh;
+}

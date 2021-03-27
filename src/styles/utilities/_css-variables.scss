@@ -1,0 +1,19 @@
+:root {
+  // main colors
+  --black: #000000;
+  --white: #ffffff;
+  --gray-200: #cccccc;
+  --gray-500: #7c7c7c;
+
+  // theme colors
+  --background-color: var(--gray-200);
+  --primary-text-color: var(--black);
+  --secondary-text-color: var(--gray-500);
+
+  // component colors
+  --user-bar-background-color: var(--white);
+  --user-bar-border-color: var(--black);
+
+  // non-colors
+  --font-family-main: 'Montserrat', sans-serif;
+}
