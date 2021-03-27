@@ -1,3 +1,28 @@
+# Goodreads RSS Stack Visualizer
+
+This is a small app that pulls RSS feed data from a Goodreads account, and renders things in a fun book-stack visualized way.
+
+## Running locally
+
+Install stuff
+
+```shell
+$ yarn install
+$ yarn start
+```
+
+## Deploying
+
+TBD, Heroku probably bs server
+
+## Notes & Gotchas
+
+
+
+
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
