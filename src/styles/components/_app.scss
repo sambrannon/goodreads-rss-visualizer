@@ -1,6 +1,7 @@
 .app {
   position: relative;
   padding-bottom: var(--user-bar-height);
+  min-height: 100vh;
 }
 
 .app__books {

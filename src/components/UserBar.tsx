@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { feedData } from '../types';
 
 interface IUserBarProps {
@@ -11,7 +11,7 @@ interface IUserBarProps {
 }
 
 export default function UserBar(props: IUserBarProps) {
-  const [actionPopoverIsOpen, toggleActionPopover] = useState(false);
+  const [showData, toggleFormVisibility] = useState(false);
 
   function totalPageCount() {
     let count = 0;
@@ -32,10 +32,15 @@ export default function UserBar(props: IUserBarProps) {
     return title.split(':')[0];
   }
 
+  useEffect(() => {
+    console.log(showData);
+    toggleFormVisibility(Boolean(props.data))
+  }, []);
+
   return (
     <div className="user-bar">
       <div className="user-bar__inner">
-        {Boolean(props.data) ? (
+        {showData ? (
           <>
             <div className="user-bar__stats">
               <div className="user-bar__stat user-bar__stat--name">
@@ -64,47 +69,56 @@ export default function UserBar(props: IUserBarProps) {
               </div>
             </div>
             <div className="user-bar__actions">
-              <div className="user-bar__popover-container">
-                <button
-                  type="button"
-                  className="user-bar__popover-trigger"
-                  onClick={() => toggleActionPopover(!actionPopoverIsOpen)}
-                >
-                  Menu
-                </button>
-                <div className={actionPopoverIsOpen ? 'user-bar__popover-content user-bar__popover-content--open' : 'user-bar__popover-content'}>
-                  <button
-                    type="button"
-                    onClick={props.onRefresh}
-                    className="user-bar__refresh-button"
-                  >
-                    Refresh
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => console.log('edit clicked')}
-                    className="user-bar__refresh-button"
-                  >
-                    Edit ID
-                  </button>
-                </div>
-              </div>
-
+              <button
+                type="button"
+                onClick={props.onRefresh}
+                className="user-bar__action"
+              >
+                Refresh
+              </button>
+              <button
+                type="button"
+                onClick={() => toggleFormVisibility(!showData)}
+                className="user-bar__action"
+              >
+                Edit ID
+              </button>
             </div>
           </>
         ) : (
-          <form onSubmit={props.onUserSearch}>
-            <label htmlFor="goodreads-id">
+          <form
+            onSubmit={props.onUserSearch}
+            className="user-bar__form"
+          >
+            <label
+              htmlFor="goodreads-id"
+              className="user-bar__form__label"
+            >
               Goodreads User ID:
             </label>
             <input
+              className="user-bar__form__input"
               id="goodreads-id"
               type="text"
               value={props.userIDQuery}
               required
               onChange={props.onUserValueChange}
             />
-            <button type="submit">Go</button>
+            <button
+              type="submit"
+              className="user-bar__form__submit"
+            >
+              Go
+            </button>
+            {Boolean(props.data) &&
+              <button
+                type="button"
+                className="user-bar__form__cancel"
+                onClick={() => toggleFormVisibility(!showData)}
+              >
+                Cancel
+              </button>
+            }
           </form>
         )}
       </div>
