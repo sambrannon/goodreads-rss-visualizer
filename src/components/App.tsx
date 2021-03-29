@@ -24,7 +24,7 @@ function goodreadsUserFeedURL(userID: string) {
 function App() {
   const [status, setStatus] = useState(STATUS_IDLE);
   const [userIDQuery, setUserIDQuery] = useState('');
-  const [data, setData] = useState<feedData | null>({});
+  const [data, setData] = useState<feedData | null>(null);
 
   const parser = new RSSParser({
     customFields: {
@@ -37,6 +37,7 @@ function App() {
         'book',
         'author_name',
         'isbn',
+        'user_name',
         'user_date_added',
         'user_read_at',
         'user_review',
@@ -46,6 +47,8 @@ function App() {
     }
   });
 
+  console.log(`App status: ${status}`);
+
   function saveFetchedData(data: feedData) {
     setData(data);
     setUserIDQuery(userIDQuery);
@@ -54,6 +57,8 @@ function App() {
     window.localStorage.setItem('userIDQuery', JSON.stringify(userIDQuery));
 
     setStatus(STATUS_FETCHED);
+
+    console.log('Saved fetched data');
   }
 
   const fetchData = async () => {
@@ -106,6 +111,7 @@ function App() {
             status={status}
             userIDQuery={userIDQuery}
             onUserSearch={onFormSubmission}
+            onRefresh={onFormSubmission}
             onUserValueChange={(ev: React.ChangeEvent<HTMLInputElement>): void => setUserIDQuery(ev.target.value)}
           />
         </div>

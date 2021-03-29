@@ -1,4 +1,36 @@
 .user-bar {
+  height: 100%;
   background-color: var(--user-bar-background-color);
   border-top: solid 0.2rem var(--user-bar-border-color);
+}
+
+.user-bar__inner {
+  width: 96rem;
+  max-width: 100%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.user-bar__stats {
+  display: flex;
+  align-items: center;
+}
+
+.user-bar__stat {
+  margin: 0 4rem;
+}
+
+.user-bar__stat__data {
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 0 0 0.5rem;
+}
+
+.user-bar__stat__label {
+  font-size: 1.4rem;
+  color: var(--secondary-text-color);
+  margin: 0;
 }

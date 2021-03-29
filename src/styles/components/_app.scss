@@ -1,19 +1,19 @@
 .app {
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
+  position: relative;
+  padding-bottom: var(--user-bar-height);
 }
 
 .app__books {
-  flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
   align-items: center;
-  overflow-y: auto;
+  padding-top: 40vh;
 }
 
 .app__user-bar {
-  flex: 0 0 auto;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: var(--user-bar-height);
 }

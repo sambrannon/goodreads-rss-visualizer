@@ -16,6 +16,7 @@ export type bookEntry = {
   },
   'author_name'?: string,
   'isbn'?: string,
+  'user_name'?: string,
   'user_date_added'?: string,
   'user_read_at'?: string,
   'user_review'?: string,

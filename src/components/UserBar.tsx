@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { feedData } from '../types';
 
 interface IUserBarProps {
@@ -7,9 +7,12 @@ interface IUserBarProps {
   userIDQuery?: string,
   onUserSearch?: any, // TODO fix
   onUserValueChange(event: React.FormEvent<HTMLInputElement>): void,
+  onRefresh?: any, // TODO fix
 }
 
 export default function UserBar(props: IUserBarProps) {
+  const [actionPopoverIsOpen, toggleActionPopover] = useState(false);
+
   function totalPageCount() {
     let count = 0;
     const books = props.data?.items || [];
@@ -25,42 +28,86 @@ export default function UserBar(props: IUserBarProps) {
     return count;
   }
 
+  function cleanedUpTitle(title: string) {
+    return title.split(':')[0];
+  }
+
   return (
     <div className="user-bar">
       <div className="user-bar__inner">
-        {props.data &&
+        {Boolean(props.data) ? (
           <>
-            <div className="user-bar__name">
-              {props.data?.title}
-            </div>
-            <div className="user-bar__books">
-              {props.data?.items?.length} Books
-            </div>
-            <div className="user-bar__pages">
-              {totalPageCount()} Total Pages
+            <div className="user-bar__stats">
+              <div className="user-bar__stat user-bar__stat--name">
+                <p className="user-bar__stat__data">
+                  {props.data?.title ? cleanedUpTitle(props.data.title) : ''}
+                </p>
+                <p className="user-bar__stat__label">
+                  Goodreads User
+                </p>
+              </div>
+              <div className="user-bar__stat user-bar__stat--book-count">
+                <p className="user-bar__stat__data">
+                  {props.data?.items?.length.toLocaleString()}
+                </p>
+                <p className="user-bar__stat__label">
+                  Books
+                </p>
+              </div>
+              <div className="user-bar__stat user-bar__stat--book-count">
+                <p className="user-bar__stat__data">
+                  {totalPageCount().toLocaleString()}
+                </p>
+                <p className="user-bar__stat__label">
+                  Total Pages
+                </p>
+              </div>
             </div>
             <div className="user-bar__actions">
+              <div className="user-bar__popover-container">
+                <button
+                  type="button"
+                  className="user-bar__popover-trigger"
+                  onClick={() => toggleActionPopover(!actionPopoverIsOpen)}
+                >
+                  Menu
+                </button>
+                <div className={actionPopoverIsOpen ? 'user-bar__popover-content user-bar__popover-content--open' : 'user-bar__popover-content'}>
+                  <button
+                    type="button"
+                    onClick={props.onRefresh}
+                    className="user-bar__refresh-button"
+                  >
+                    Refresh
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => console.log('edit clicked')}
+                    className="user-bar__refresh-button"
+                  >
+                    Edit ID
+                  </button>
+                </div>
+              </div>
 
             </div>
           </>
-        }
+        ) : (
+          <form onSubmit={props.onUserSearch}>
+            <label htmlFor="goodreads-id">
+              Goodreads User ID:
+            </label>
+            <input
+              id="goodreads-id"
+              type="text"
+              value={props.userIDQuery}
+              required
+              onChange={props.onUserValueChange}
+            />
+            <button type="submit">Go</button>
+          </form>
+        )}
       </div>
-      <p>
-        Status: {props.status}
-      </p>
-      <form onSubmit={props.onUserSearch}>
-        <label htmlFor="goodreads-id">
-          Goodreads User ID:
-        </label>
-        <input
-          id="goodreads-id"
-          type="text"
-          value={props.userIDQuery}
-          required
-          onChange={props.onUserValueChange}
-        />
-        <button type="submit">Go</button>
-      </form>
     </div>
   );
 }
